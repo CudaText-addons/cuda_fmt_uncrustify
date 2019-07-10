@@ -86,16 +86,12 @@ def run_app(text, config):
 def do_format(text):
 
     fn = app.ed.get_filename()
-    config_file = os.path.join(os.path.dirname(fn), CONFIG)
-    config_cuda = os.path.join(app.app_path(app.APP_DIR_SETTINGS), CONFIG)
+    config_cuda = get_config_filename('Uncrustify Format')
     config_os = os.path.expanduser('~'+os.sep+CONFIG)
 
-    if os.path.exists(config_file):
-        config = config_file
-    elif os.path.exists(config_cuda):
+    if os.path.exists(config_cuda):
         config = config_cuda
     else:
         config = config_os
     
     return run_app(text, config)
-
