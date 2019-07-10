@@ -1,0 +1,12 @@
+[info]
+title=Formatter using Uncrustify
+desc=Formats code of C-like languages, using Uncrustify program
+type=cudatext-plugin
+subdir=cuda_fmt_uncrustify
+homepage=https://github.com/CudaText-addons/cuda_fmt_uncrustify
+
+[fmt1]
+caption=Uncrustify Format
+method=do_format
+lexers=C,C++,C#,Objective-C,D,Java,Pawn,Vala
+config=uncrustify.cfg
