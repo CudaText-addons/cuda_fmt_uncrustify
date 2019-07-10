@@ -85,13 +85,5 @@ def run_app(text, config):
 
 def do_format(text):
 
-    fn = app.ed.get_filename()
-    config_cuda = get_config_filename('Uncrustify Format')
-    config_os = os.path.expanduser('~'+os.sep+CONFIG)
-
-    if os.path.exists(config_cuda):
-        config = config_cuda
-    else:
-        config = config_os
-    
+    config = get_config_filename('Uncrustify Format')
     return run_app(text, config)
