@@ -4,26 +4,10 @@ import cudatext as app
 from cuda_fmt import get_config_filename
 
 PROGRAM = 'uncrustify.exe' if os.name=='nt' else 'uncrustify' 
-CONFIG = 'uncrustify.cfg'
 
-LANGS = {
-    'C': 'C',
-    'C++': 'CPP',
-    'C#': 'CS',
-    'D': 'D',
-    'Java': 'JAVA',
-    'Pawn': 'PAWN',
-    'Objective-C': 'OC',
-    'Objective-C++': 'OC+',
-    'Vala': 'VALA',
-    }
+def run_app(text, syntax):
 
-def run_app(text, config):
-
-    tab_spaces = app.ed.get_prop(app.PROP_TAB_SPACES)
-    tab_size = app.ed.get_prop(app.PROP_TAB_SIZE)
-    lexer = app.ed.get_prop(app.PROP_LEXER_FILE)
-    syntax = LANGS.get(lexer, 'C')
+    config = get_config_filename('Uncrustify')
 
     program = PROGRAM
     if os.name=='nt':
@@ -36,10 +20,6 @@ def run_app(text, config):
         '-l', syntax,
         '-c', config,
         '--set', 'newlines=LF',
-        '--set', 'indent_with_tabs='+str(0 if tab_spaces else 1),
-        '--set', 'indent_columns='+str(tab_size),
-        '--set', 'input_tab_size='+str(tab_size),
-        '--set', 'output_tab_size='+str(tab_size),
         ]
 
     print('Running:', ' '.join(command))
@@ -83,7 +63,12 @@ def run_app(text, config):
     return formatted_code
 
 
-def do_format(text):
-
-    config = get_config_filename('Uncrustify Format')
-    return run_app(text, config)
+def format_c(text): return run_app(text, 'C')
+def format_cpp(text): return run_app(text, 'CPP')
+def format_cs(text): return run_app(text, 'CS')
+def format_d(text): return run_app(text, 'D')
+def format_java(text): return run_app(text, 'JAVA')
+def format_pawn(text): return run_app(text, 'PAWN')
+def format_objc(text): return run_app(text, 'OC')
+def format_objcpp(text): return run_app(text, 'OC+')
+def format_vala(text): return run_app(text, 'VALA')

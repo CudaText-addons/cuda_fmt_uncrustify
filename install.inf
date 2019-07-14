@@ -6,7 +6,42 @@ subdir=cuda_fmt_uncrustify
 homepage=https://github.com/CudaText-addons/cuda_fmt_uncrustify
 
 [fmt1]
-caption=Uncrustify Format
-method=do_format
-lexers=C,C++,C#,Objective-C,D,Java,Pawn,Vala
+caption=Uncrustify
+method=format_c
+lexers=C
 config=uncrustify.cfg
+
+[fmt2]
+caption=Uncrustify (C++)
+method=format_cpp
+lexers=C++
+
+[fmt3]
+caption=Uncrustify (C#)
+method=format_cs
+lexers=C#
+
+[fmt4]
+caption=Uncrustify (Objective-C)
+method=format_objc
+lexers=Objective-C
+
+[fmt5]
+caption=Uncrustify (D)
+method=format_d
+lexers=D
+
+[fmt6]
+caption=Uncrustify (Java)
+method=format_java
+lexers=Java
+
+[fmt7]
+caption=Uncrustify (Pawn)
+method=format_pawn
+lexers=Pawn
+
+[fmt8]
+caption=Uncrustify (Vala)
+method=format_vala
+lexers=Vala
