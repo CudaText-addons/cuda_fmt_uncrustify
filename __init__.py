@@ -3,28 +3,25 @@ import subprocess
 import cudatext as app
 from cuda_fmt import get_config_filename
 
-PROGRAM = 'uncrustify.exe' if os.name=='nt' else 'uncrustify' 
+PROGRAM = 'uncrustify'
+if os.name=='nt':
+    PROGRAM = 'uncrustify.exe'
+    fn = os.path.join(app.app_path(app.APP_DIR_EXE), 'tools', 'uncrustify.exe')
+    if os.path.exists(fn):
+        PROGRAM = fn
 
 def run_app(text, syntax):
 
-    config = get_config_filename('Uncrustify')
-
-    program = PROGRAM
-    if os.name=='nt':
-        fn = os.path.join(app.app_path(app.APP_DIR_EXE), 'tools', 'uncrustify.exe')
-        if os.path.exists(fn):
-            program = fn
-
     command = [
-        program, 
+        PROGRAM,
         '-l', syntax,
-        '-c', config,
+        '-c', get_config_filename('Uncrustify'),
         '--set', 'newlines=LF',
         ]
 
     print('Running:', ' '.join(command))
     content = text.encode("utf-8")
-    
+
     try:
         if os.name=='nt':
             # to hide the console window brings from command
@@ -49,12 +46,12 @@ def run_app(text, syntax):
                 err = "Uncrustify failed (0x%X)\n\n%s" % (ret_code, msg[:pos])
             else:
                 err = "Uncrustify stopped (0x%X)" % ret_code
-            
+
             app.msg_box(err, app.MB_OK+app.MB_ICONWARNING)
             return
 
     except (OSError, ValueError, subprocess.CalledProcessError, Exception) as e:
-    
+
         err = "Cannot execute '%s':\n\n%s" % (command[0], e)
         app.msg_box(err, app.MB_OK+app.MB_ICONERROR)
         return
